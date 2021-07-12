@@ -1,0 +1,15 @@
+    req.session.userId = user.id;
+
+{userId : 1} -> sending to redis
+
+1) session:sudhnfcfvdudisvhc => {userId: 1}
+
+2) express-session will be set a cookie on browser hnsndcscdklhsdcschSCHDhsuchsuhdc
+
+3) When user makes a request
+hnsndcscdklhsdcschSCHDhsuchsuhdc -> Sent to server
+
+4) Decrypt a cookie hnsndcscdklhsdcschSCHDhsuchsuhdc -> session:sudhnfcfvdudisvhc
+
+5) make a request to redis 
+session:sudhnfcfvdudisvhc => {userId: 1}
