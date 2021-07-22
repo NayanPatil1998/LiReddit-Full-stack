@@ -10,20 +10,23 @@ import { PostResolver } from "./resolvers/post";
 import { UserResolver } from "./resolvers/user";
 // import { User } from "./entities/User";
 import connectRedis from "connect-redis";
-import redis from "redis";
+import Redis from "ioredis";
 import session from "express-session";
 import cors from "cors";
 
 let RedisStore = connectRedis(session);
-let redisClient = redis.createClient();
+let redis = new Redis();
 
 const main = async () => {
+  // sendEmail("nayan96047833@gmail.com", "dcsildcusi");
   const orm = await MikroORM.init(mikroConfig);
   await orm.getMigrator().up();
 
+  console.log(__dirname);
+
   // const generator = orm.getSchemaGenerator();
   // await generator.updateSchema();
-
+  // await orm.em.nativeDelete(User, {});
   const app = express();
 
   app.use(
@@ -36,7 +39,7 @@ const main = async () => {
   app.use(
     session({
       name: COOKIE_NAME,
-      store: new RedisStore({ client: redisClient, disableTouch: true }),
+      store: new RedisStore({ client: redis, disableTouch: true }),
       cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
         httpOnly: true,
@@ -58,6 +61,7 @@ const main = async () => {
       em: orm.em,
       req,
       res,
+      redis,
     }),
   });
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@chakra-ui/react";
+import { Button, Flex, Link } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import Wrapper from "../components/wrapper";
 import InputTextField from "../components/InputTextField";
@@ -8,6 +8,7 @@ import { toErrorMap } from "../utils/toErrorMap";
 import { useRouter } from "next/router";
 import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../utils/createUrqlClient";
+import NextLink from "next/link";
 interface loginProps {}
 
 const Login: React.FC<loginProps> = () => {
@@ -17,9 +18,9 @@ const Login: React.FC<loginProps> = () => {
   return (
     <Wrapper variant="small">
       <Formik
-        initialValues={{ username: "", password: "" }}
+        initialValues={{ usernameOrEmail: "", password: "" }}
         onSubmit={async (values, { setSubmitting, setErrors }) => {
-          const response = await login({ options: values });
+          const response = await login(values);
           if (response.data?.login.errors) {
             setErrors(toErrorMap(response.data.login.errors));
           } else if (response.data?.login.user) {
@@ -31,9 +32,9 @@ const Login: React.FC<loginProps> = () => {
         {({ isSubmitting }) => (
           <Form>
             <InputTextField
-              name="username"
-              placeholder="Enter Username"
-              label="Username"
+              name="usernameOrEmail"
+              placeholder="Enter Username or Email"
+              label="Username Or Email"
             />
             <InputTextField
               name="password"
@@ -41,7 +42,11 @@ const Login: React.FC<loginProps> = () => {
               label="Password"
               type="password"
             />
-
+            <Flex>
+              <Link mx={3} ml="auto" color="teal">
+                <NextLink href="/forgot-password"> Forgot Password ?</NextLink>
+              </Link>
+            </Flex>
             <Button
               mt={4}
               colorScheme="teal"
