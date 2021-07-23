@@ -30,7 +30,7 @@ const User_1 = require("./entities/User");
 let RedisStore = connect_redis_1.default(express_session_1.default);
 let redis = new ioredis_1.default();
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
-    const connection = typeorm_1.createConnection({
+    const connection = yield typeorm_1.createConnection({
         type: "postgres",
         database: "lireddit2",
         username: "postgres",

@@ -21,7 +21,7 @@ let redis = new Redis();
 const main = async () => {
   // sendEmail("nayan96047833@gmail.com", "dcsildcusi");
 
-  const connection = createConnection({
+  const connection = await createConnection({
     type: "postgres",
     database: "lireddit2",
     username: "postgres",
@@ -29,7 +29,6 @@ const main = async () => {
     synchronize: true,
     entities: [Post, User],
   });
-
   // const generator = orm.getSchemaGenerator();
   // await generator.updateSchema();
   // await orm.em.nativeDelete(User, {});

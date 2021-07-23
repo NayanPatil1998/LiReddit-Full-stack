@@ -16,7 +16,7 @@ import { UsernameAndPasswordInput } from "../utils/UsernameAndPasswordInput";
 import { validateRegister } from "../utils/validateRegister";
 import { sendEmail } from "../utils/sendEmail";
 import { v4 } from "uuid";
-import { getConnection, InsertResult } from "typeorm";
+import { getConnection } from "typeorm";
 
 @ObjectType()
 class FieldError {
